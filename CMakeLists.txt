@@ -263,9 +263,6 @@ if(realsense2_FOUND)
     # target_link_libraries(stereo_inertial_realsense_D435i ${PROJECT_NAME})
 endif()
 
-add_executable(stereo_inertial_simod
-    Examples/Stereo-Inertial/stereo_inertial_simod.cc)
-target_link_libraries(stereo_inertial_simod ${PROJECT_NAME})
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples/Calibration)
 if(realsense2_FOUND)
@@ -278,6 +275,10 @@ if(realsense2_FOUND)
     target_link_libraries(recorder_realsense_T265 ${PROJECT_NAME})
 endif()
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/executables)
+add_executable(stereo_inertial_simod
+    executables/stereo_inertial_simod.cc)
+target_link_libraries(stereo_inertial_simod ${PROJECT_NAME})
 #Old examples
 
 # RGB-D examples
