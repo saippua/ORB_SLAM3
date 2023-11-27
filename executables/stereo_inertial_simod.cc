@@ -83,10 +83,10 @@ int main(int argc, char **argv)
         cout << "Loading images for sequence " << seq << "...";
 
         string pathSeq(argv[seq + 3]);
-        auto imageTimeStamps = std::filesystem::directory_iterator(pathSeq + "/cam0");
+        auto imageTimeStamps = std::filesystem::directory_iterator(pathSeq + "/cam0/raw");
     
-        string pathCam0 = pathSeq + "/cam0/";
-        string pathCam1 = pathSeq + "/cam1/";
+        string pathCam0 = pathSeq + "/cam0/raw/";
+        string pathCam1 = pathSeq + "/cam1/raw/";
         string pathAccel = pathSeq + "/accel/accel_data.csv";
         string pathGyro = pathSeq + "/gyro/gyro_data.csv";
         
@@ -131,7 +131,9 @@ int main(int argc, char **argv)
 
     ORB_SLAM3::System SLAM(argv[1],argv[2],ORB_SLAM3::System::IMU_STEREO, false);
 
-    cv::Mat im_left, im_right;
+    std::ifstream fp;
+    cv::Mat im_left(800, 848, CV_8UC1);
+    cv::Mat im_right(800, 848, CV_8UC1);
     for (seq = 0; seq<num_seq; seq++)
     {
         // Seq loop
@@ -144,8 +146,16 @@ int main(int argc, char **argv)
         for(int ni=0; ni<nImages[seq]; ni++, proccIm++)
         {
             // Read left and right images from file
-            im_left = cv::imread(vstrImageLeft[seq][ni],cv::IMREAD_GRAYSCALE);
-            im_right = cv::imread(vstrImageRight[seq][ni],cv::IMREAD_GRAYSCALE);
+            fp.open(vstrImageLeft[seq][ni].c_str(), std::ios::binary);
+            fp.read((char*)im_left.data, im_left.total());
+            fp.close();
+
+            fp.open(vstrImageRight[seq][ni].c_str(), std::ios::binary);
+            fp.read((char*)im_right.data, im_right.total());
+            fp.close();
+            
+            // im_left = cv::imread(vstrImageLeft[seq][ni],cv::IMREAD_GRAYSCALE);
+            // im_right = cv::imread(vstrImageRight[seq][ni],cv::IMREAD_GRAYSCALE);
 
 
             if(im_left.empty())
@@ -244,7 +254,7 @@ void LoadImages(const string &strPathLeft, const string &strPathRight,
     for (auto const& entry : strPathTimes)
     {
         string s;
-        if (entry.path().extension() != ".png")
+        if (entry.path().extension() != ".raw")
             continue;
         s = entry.path().stem();
         // getline(fTimes,s);
@@ -252,8 +262,8 @@ void LoadImages(const string &strPathLeft, const string &strPathRight,
         {
             stringstream ss;
             ss << s;
-            vstrImageLeft.push_back(strPathLeft + "/" + ss.str() + ".png");
-            vstrImageRight.push_back(strPathRight + "/" + ss.str() + ".png");
+            vstrImageLeft.push_back(strPathLeft + "/" + ss.str() + ".raw");
+            vstrImageRight.push_back(strPathRight + "/" + ss.str() + ".raw");
             double t;
             ss >> t;
             vTimeStamps.push_back(t/1e9);
