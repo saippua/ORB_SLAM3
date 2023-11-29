@@ -8,37 +8,37 @@ File.version: "1.0"
 Camera.type: "KannalaBrandt8"
 
 # Left Camera calibration and distortion parameters (OpenCV)
-Camera1.fx: 284.9501953125
-Camera1.fy: 285.115295410156
-Camera1.cx: 420.500213623047
-Camera1.cy: 400.738098144531
+Camera1.fx: 286.268310546875
+Camera1.fy: 286.295989990234
+Camera1.cx: 418.566589355469
+Camera1.cy: 403.116088867188
 
 # Kannala-Brandt distortion parameters
-Camera1.k1: -0.00530046410858631
-Camera1.k2: 0.0423333682119846
-Camera1.k3: -0.03949885815382
-Camera1.k4: 0.00682387687265873
+Camera1.k1: -0.00476462999
+Camera1.k2: 0.0415727310
+Camera1.k3: -0.0387103818
+Camera1.k4: 0.00651174691
 
 # Right Camera calibration and distortion parameters (OpenCV)
-Camera2.fx: 285.001312255859
-Camera2.fy: 284.914215087891
-Camera2.cx: 411.864196777344
-Camera2.cy: 403.41259765625
+Camera2.fx: 286.08370971679688
+Camera2.fy: 286.0286865234375
+Camera2.cx: 414.37899780273438
+Camera2.cy: 401.09240722656250
 
 # Kannala-Brandt distortion parameters
-Camera2.k1: -0.00375203299336135
-Camera2.k2: 0.0379297286272049
-Camera2.k3: -0.0352463386952877
-Camera2.k4: 0.00548873096704
+Camera2.k1: -0.00564806396
+Camera2.k2: 0.0425024405
+Camera2.k3: -0.0404532216
+Camera2.k4: 0.00724395085
     
 # Transformation matrix from right camera to left camera
 Stereo.T_c1_c2: !!opencv-matrix
   rows: 4
   cols: 4
   dt: f
-  data: [ 0.999983,   0.00445005, 0.00385861,  0.0636739954352379,
-         -0.00443664, 0.999984,  -0.00347621, -0.000252007856033742,
-         -0.00387402, 0.00345903, 0.999986,   -8.87895439518616e-05,
+  data: [ 0.999983,  -0.00209395, 0.00549909,  0.0635240152478218,
+          0.00210957, 0.999994,  -0.00283477, -0.000393375812564045,
+         -0.00549312, 0.00284632, 0.999981,   -0.000435372174251825,
           0.0, 0.0, 0.0, 1.0]
 
 # Overlapping area between images (to be updated)
@@ -70,9 +70,9 @@ IMU.T_b_c1: !!opencv-matrix
    rows: 4
    cols: 4
    dt: f
-   data: [-0.999959,   -0.00265193, 0.00870996, 0.0107000041753054, 
-           0.00262197, -0.999991,  -0.0034493, -1.45519152283669e-11,
-           0.00871902, -0.00342632, 0.999956,  -1.45519152283669e-11,
+   data: [-0.999808,   -0.0179892, 0.00770982, 0.0106999985873699, 
+           0.0179675, -0.999834,  -0.00287004, 5.82076609134674e-11,
+           0.00776017, -0.00273096, 0.999966,  1.45519152283669e-11,
            0.0, 0.0, 0.0, 1.0]
 
 # Do not insert KFs when recently lost

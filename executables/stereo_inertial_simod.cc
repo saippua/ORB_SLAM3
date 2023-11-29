@@ -129,7 +129,7 @@ int main(int argc, char **argv)
     cout << endl << "-------" << endl;
     // cout.precision(17);
 
-    ORB_SLAM3::System SLAM(argv[1],argv[2],ORB_SLAM3::System::IMU_STEREO, false);
+    ORB_SLAM3::System SLAM(argv[1],argv[2],ORB_SLAM3::System::IMU_STEREO, true);
 
     std::ifstream fp;
     cv::Mat im_left(800, 848, CV_8UC1);
@@ -162,14 +162,14 @@ int main(int argc, char **argv)
             {
                 cerr << endl << "Failed to load image at: "
                      << string(vstrImageLeft[seq][ni]) << endl;
-                return 1;
+                break;
             }
 
             if(im_right.empty())
             {
                 cerr << endl << "Failed to load image at: "
                      << string(vstrImageRight[seq][ni]) << endl;
-                return 1;
+                break;
             }
 
             double tframe = vTimestampsCam[seq][ni];
